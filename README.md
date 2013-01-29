@@ -1,9 +1,39 @@
 MC+A Google Java Feeder
 ============================
 
-A port of the MC+A C# Library for developing simple feeders to the Google Search Appliance into Java
+A port of the MC+A C# Library for developing simple feeders to the Google Search Appliance into Java.
 
-Copyright 2013 Michael Cizmar + Associates Ltd. (MC+A)
+# Usage
+ 
+```
+ log.info("Begin delete");
+ String feedFile = "";
+ GSAUploader uploader = new GSAUploader(log);
+ GSAFeed myFeed = null;
+ 
+ log.debug("Setting up empty full feed");
+ myFeed = new GSAFeed(log, this.feedLocation, GSAFeedType.FEEDTYPE_FULL);
+ myFeed.setDataSource(this.dataSource);
+ myFeed.BuildHeader();
+ 
+ feedFile = myFeed.WriteXMLToFile(gsa);
+ 
+ log.info("temp xml file saved to: " + feedFile);
+ uploader.FeedXml(feedFile, gsa, false);
+ log.info("item submitted to gsa");
+ 
+  uploader = null;
+  myFeed = null;
+```
+
+# Dependencies
+* log4j
+
+# Related Projects
+[GSALib C# SDK for Query GSA](http://gsalib.codeplex.com)
+[MC+A C# SDK for GSA](http://github.com/mcplusa/mcplusa-google-feeder-csharp/)
+
+Copyright 2013 Michael Cizmar + Associates Ltd. ([MC+A](http://www.mcplusa.com/))
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
