@@ -23,6 +23,7 @@ public class GSAContentItem {
 	protected Date	lastModified;
 	protected ArrayList   metaData;
 	protected String authMethod = GSAAuthMethodTypes.AUTH_METHOD_NONE;
+        protected GSAACLItem acl;
 
     public GSAContentItem()
 	{
@@ -109,6 +110,14 @@ public class GSAContentItem {
     public void setAuthmethod(String newAuthMethod)
     {
         authMethod = newAuthMethod;
+    }
+    
+    public void setAcl(GSAACLItem acl) {
+        this.acl = acl;
+    }
+    
+    public GSAACLItem getAcl() {
+        return this.acl;
     }
 
     public void addMetaData(String name, String content)

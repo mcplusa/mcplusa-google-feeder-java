@@ -158,6 +158,9 @@ public class GSAFeed {
         }
 
         recordNode.setAttribute("authmethod", item.getAuthMethod());
+        if (item.getAcl() != null) {
+            this.AddACL(item.getAcl(), recordNode, true);
+        }
         if (item.metaData.size() > 0) {
             Element metaData = doc.createElement("metadata");
             GSAMetaDataItem metaItem;
@@ -183,8 +186,42 @@ public class GSAFeed {
             content.setTextContent(item.getContent());
             recordNode.appendChild(content);
         }
+        
         groupNode.appendChild(recordNode);
         count++;
 
+    }
+    
+    public void AddACL(GSAACLItem item) {
+        this.AddACL(item, groupNode, false);
+    }
+    
+    private void AddACL(GSAACLItem item, Node aclContainer, boolean aclInsideRecord) {
+        Element aclNode = doc.createElement("acl");
+        if (!aclInsideRecord) {
+            aclNode.setAttribute("url", item.getUrl());
+        }
+        
+        if (item.getInheritanceType() != null) {
+            aclNode.setAttribute("inheritance-type", item.getInheritanceType().getValue());
+        }
+        
+        if (item.getInheritFrom() != null && item.getInheritFrom().trim().length() != 0) {
+            aclNode.setAttribute("inherit-from", item.getInheritFrom());
+        }
+        
+        if (item.getPrincipals().size() > 0) {
+            for (GSAACLPrincipal principalItem : item.getPrincipals()) {
+                Element principal = doc.createElement("principal");
+                principal.setAttribute("namespace", principalItem.getNamespace());
+                principal.setAttribute("case-sensitivity-type", principalItem.getCaseSensitivityType().getValue());
+                principal.setAttribute("scope", principalItem.getScope().getValue());
+                principal.setAttribute("access", principalItem.getAccess().getValue());
+                principal.appendChild(doc.createTextNode(principalItem.getContent()));
+                aclNode.appendChild(principal);
+            }
+        }
+        
+        aclContainer.appendChild(aclNode);
     }
 }
