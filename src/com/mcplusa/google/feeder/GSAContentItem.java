@@ -15,6 +15,8 @@ import com.mcplusa.google.feeder.constants.*;
 public class GSAContentItem {
 
     protected String url = "";
+    //Set to true because why would you not want the GSA to immediately crawl?
+    protected boolean crawlImmediately = true;
     protected String display_url = "";
 	protected String mimetype = "";
 	protected String content = "";
@@ -33,6 +35,16 @@ public class GSAContentItem {
     public String getUrl()
     {
         return url;
+    }
+    
+    public boolean isCrawlImmediately()
+    {
+        return crawlImmediately;
+    }
+    
+    public void setCrawlImmediately(boolean crawlImmediately)
+    {
+        this.crawlImmediately = crawlImmediately;
     }
     
     public void setDisplayUrl(String newDisplayUrl) {
