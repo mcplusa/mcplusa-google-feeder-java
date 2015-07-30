@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mcplusa.google.feeder;
 
 import java.io.IOException;
@@ -99,13 +95,12 @@ public class GSAFeed {
 
     public final String WriteXMLToFile(String gsa) {
         logger.info("Starting WriteXmlToFile");
-        String filename = "asdf" + "something";
         Date now = new Date();
         SimpleDateFormat sd = new SimpleDateFormat("yyyy_mm_dd_hh_ss");
         
         String timestamp = sd.format(now);
         
-        filename = this.dataSource + "_" +  timestamp + ".xml";
+        String filename = this.dataSource + "_" +  timestamp + ".xml";
         try {
         	if (feederFolder.length() > 0) {
         		if (feederFolder.endsWith("\\")) {
