@@ -151,6 +151,14 @@ public class GSAFeed {
         if (item.getHasLastModified()) {
             recordNode.setAttribute("last-modified", item.getLastModifiedUTC());
         }
+        
+        if (item.isCrawlImmediately()) {
+            recordNode.setAttribute("crawl-immediately", "true" );
+        } else {
+            recordNode.setAttribute("crawl-immediately", "false" );
+        }
+        
+       
 
         recordNode.setAttribute("authmethod", item.getAuthMethod());
         if (item.getAcl() != null) {
