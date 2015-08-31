@@ -19,6 +19,7 @@ public class ConnectorConstants {
   public final static String FEEDER_HEADER = "header";
   public final static String FEEDER_RECORD = "record";
   public final static String FEEDER_GROUP = "group";
+  public static final String FEEDER_XMLGROUP = "xmlgroups";
   public final static String FEEDER_GSAFEED = "gsafeed";
   public final static String FEEDER_TYPE = "feedtype";
   public final static String FEEDER_DATA = "data";
