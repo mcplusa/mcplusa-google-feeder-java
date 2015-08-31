@@ -1,8 +1,13 @@
 package com.mcplusa.google.feeder;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.xml.transform.Transformer;
 
 import org.apache.log4j.Logger;
+import org.apache.xml.serialize.XMLSerializer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,11 +20,18 @@ public class GSAGroupsFeed {
   protected Document doc;
   protected Node root;
   protected int count = 0;
+  private String feederFolder = "";
 
+  public String getFeederFolder() {
+    return feederFolder;
+  }
+  public void setFeederFolder(String feederFolder) {
+    this.feederFolder = feederFolder;
+  }
+  
   public int getCount() {
     return count;
   }
-
   public void setCount(int newCount) {
     count = newCount;
   }
@@ -74,4 +86,36 @@ public class GSAGroupsFeed {
     
     groupContainer.appendChild(membershipNode);
   }
+  
+  public final String WriteXMLToFile(String gsa) {
+    logger.info("Starting WriteXmlToFile");
+    Date now = new Date();
+    SimpleDateFormat sd = new SimpleDateFormat("yyyy_mm_dd_hh_ss");
+    
+    String timestamp = sd.format(now);
+    
+    String filename = "groups_" +  timestamp + ".xml";
+    try {
+      if (getFeederFolder().length() > 0) {
+        if (getFeederFolder().endsWith("\\")) {
+          filename = getFeederFolder() + filename;
+        } else {
+          filename = getFeederFolder() + "\\" + filename;
+        }
+      } else {
+        //do nothing there was no specified folder
+      }
+        // use specific Xerces class to write DOM-data to a file:
+        XMLSerializer serializer = new XMLSerializer();
+        Transformer transformer = FeederUtil.createTransformer(gsa);
+        FeederUtil.writeToFile(transformer, doc, filename);
+  
+    } catch (Throwable ex) {
+        logger.error("Error  GSAFeed.WriteXMLToFile()", ex);
+    }
+    logger.info("File written to: " + filename + " successfully.");
+    logger.info("Ending WriteXmlToFile");
+    return filename;
+  }
+
 }
