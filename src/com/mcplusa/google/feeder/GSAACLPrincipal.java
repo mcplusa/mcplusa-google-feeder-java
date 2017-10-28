@@ -10,11 +10,10 @@ public class GSAACLPrincipal {
     private ACLPrincipalScope scope;
     private ACLPrincipalAccess access;
     private String content;
-
+    
     public String getNamespace() {
         return namespace;
     }
-
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
@@ -22,15 +21,20 @@ public class GSAACLPrincipal {
     public ACLCaseSensitivityType getCaseSensitivityType() {
         return caseSensitivityType;
     }
-
     public void setCaseSensitivityType(ACLCaseSensitivityType caseSensitivityType) {
         this.caseSensitivityType = caseSensitivityType;
+    }
+    public void setCaseSensitivity(boolean sensitive) {
+      if (sensitive) {
+        this.setCaseSensitivityType(ACLCaseSensitivityType.ACL_PRINCIPAL_CASE_SENSITIVE);
+      } else {
+        this.setCaseSensitivityType(ACLCaseSensitivityType.ACL_PRINCIPAL_CASE_INSENSITIVE);
+      }
     }
 
     public ACLPrincipalScope getScope() {
         return scope;
     }
-
     public void setScope(ACLPrincipalScope scope) {
         this.scope = scope;
     }
@@ -38,7 +42,6 @@ public class GSAACLPrincipal {
     public ACLPrincipalAccess getAccess() {
         return access;
     }
-
     public void setAccess(ACLPrincipalAccess access) {
         this.access = access;
     }
@@ -46,7 +49,6 @@ public class GSAACLPrincipal {
     public String getContent() {
         return content;
     }
-
     public void setContent(String content) {
         this.content = content;
     }
